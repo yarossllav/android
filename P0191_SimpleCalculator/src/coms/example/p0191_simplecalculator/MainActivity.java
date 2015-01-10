@@ -1,9 +1,10 @@
 package coms.example.p0191_simplecalculator;
 
+import java.math.BigDecimal;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,24 +59,23 @@ public class MainActivity extends Activity implements OnClickListener {
 			Toast.makeText(this, "Error: add the number!", Toast.LENGTH_LONG);
 			return;
 		}
-		
-		float number1 = Float.parseFloat(etNum1.getText().toString());
-		float number2 = Float.parseFloat(etNum2.getText().toString());
-		float result = 0;
+		BigDecimal number1 = new BigDecimal(etNum1.getText().toString());
+		BigDecimal number2 = new BigDecimal(etNum2.getText().toString());
+		BigDecimal result = new BigDecimal (0);
 		String znak = "";
 		
 		switch (v.getId()){
 		case R.id.btnAdd:
 			znak = "+";
-			result = number1 + number2;
+			result = number1.add(number2);
 			break;
 		case R.id.btnSub:
 			znak = "-";
-			result = number1 - number2;
+			result = number1.subtract(number2);
 			break;
 		case R.id.btnMult:
 			znak = "*";
-			result = number1 * number2;
+			result = number1.multiply(number2);
 			break;
 		case R.id.btnDiv:
 			if (Float.parseFloat(etNum2.getText().toString())==0){
@@ -83,10 +83,10 @@ public class MainActivity extends Activity implements OnClickListener {
 				return;
 			}
 			znak = "/";
-			result = number1 / number2;
+			result = number1.divide(number2);
 			break;
 		}
-		tvResult.setText(String.valueOf(number1)+" "+znak+" "+String.valueOf(number2)+" = "+String.valueOf(result));
+		tvResult.setText(number1.toString()+" "+znak+" "+number2.toString()+" = "+result.toString());
 		
 	}
 
